@@ -1,11 +1,34 @@
-import './App.css';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+  from
+} from '@apollo/client';
+import { onError } from '@apollo/client/link/error';
+
+
+const errorLink = onError(({ graphqlErrors, networkError }) => {
+  if (graphqlErrors) {
+    graphqlErrors.map(({ message, location, path }) => {
+      alert(`Graphql error ${message}`)
+    })
+  }
+})
+
+const link = from([
+  errorLink,
+  new HttpLink({ uri: "https://angular-test-backend-yc4c5cvnnq-an.a.run.app/graphiql" })
+])
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: link
+})
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Hello React Chat App</h1>
-    </div>
-  );
+  return <ApolloProvider client={client}>
+  </ApolloProvider>;
 }
 
 export default App;
