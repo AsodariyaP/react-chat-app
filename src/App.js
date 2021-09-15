@@ -6,6 +6,8 @@ import {
   from
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
+import ChatScreen from './Components/ChatScreen';
+import './App.css'
 
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
@@ -28,6 +30,7 @@ const client = new ApolloClient({
 
 function App() {
   return <ApolloProvider client={client}>
+    <ChatScreen/>
   </ApolloProvider>;
 }
 
