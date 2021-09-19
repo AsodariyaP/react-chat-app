@@ -6,7 +6,7 @@ import {
   from
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import ChatScreen from './Components/ChatScreen';
+import ChatList from './Components/ChatList';
 import './App.css'
 
 
@@ -30,7 +30,7 @@ const client = new ApolloClient({
 
 function App() {
   return <ApolloProvider client={client}>
-    <ChatScreen/>
+    <ChatList/>
   </ApolloProvider>;
 }
 

@@ -1,8 +1,13 @@
-import { getMessages} from '../GraphQL/Queries';
+import React, { useContext } from 'react';
+import { getMessages } from '../GraphQL/Queries';
+import { ChatContext } from '../Context';
+import PostMessages from './PostMessages';
+
 
 const DisplayMessages = () => {
-    const messages = getMessages.data.fetchLatestMessages.sort((a, b) => { return a.messageId - b.messageId });
-    const selectedUser = 'Russell';
+    const { selectedChannel, chatData, user } = useContext(ChatContext);
+    // const messages = getMessages.data.fetchLatestMessages.sort((a, b) => { return a.messageId - b.messageId });
+    const selectedUser = user.userId;
 
     const formatTime = (date) => {
         const d = new Date(date);
@@ -12,11 +17,11 @@ const DisplayMessages = () => {
     return (
         <div className="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9">
             <div className="selected-user">
-                <span className="name">Emily Russell</span>
+                <span className="name">{selectedChannel.name} {user.id}</span>
             </div>
             <div className="chat-container">
                 <ul className="chat-box chatContainerScroll" >
-                    {messages.map((message) =>
+                    {chatData.map((message) =>
                         <div>
                             {selectedUser !== message.userId && (
                                 <li className='chat-left' key={message.messageId}>
@@ -42,10 +47,7 @@ const DisplayMessages = () => {
                         </div>
                     )}
                 </ul>
-                <div className="form-group mt-3 mb-0">
-                    <textarea className="form-control" rows="3" placeholder="Type your message here..."></textarea>
-                    <button className="btn btn-success mt-2 float-right"><b>Send Message</b> <span className="fa fa-paper-plane"></span></button>
-                </div>
+                <PostMessages />
             </div>
         </div>
     )

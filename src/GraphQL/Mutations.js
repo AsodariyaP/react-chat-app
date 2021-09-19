@@ -1,13 +1,15 @@
-import { gql } from '@apollo/client';
+import makeRequest from "./Call-API";
 
-// Define mutation
-export const POST_MESSAGES = gql`
-    mutation postMessage {
-        postMessage(channelId: "1", text: "Hello Russel", userId: "Sam") {
-          userId
-          datetime
-          text
-          messageId
-        }
-    }
-`;
+const postMessage = (channelId, text, userId) => {
+  const payload = `mutation postMessage {
+      postMessage(channelId: ${channelId}, text: ${text}, userId: ${userId}) {
+        userId
+        datetime
+        text
+        messageId
+      }
+  }`;
+  return makeRequest(payload);
+}
+
+export { postMessage };
