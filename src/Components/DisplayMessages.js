@@ -20,6 +20,7 @@ const DisplayMessages = () => {
                 <span className="name">{selectedChannel.name} {user.id}</span>
             </div>
             <div className="chat-container">
+                <button class="btn btn-success btn-sm mb-3">Read More <i class="fa fa-arrow-up"></i></button>
                 <ul className="chat-box chatContainerScroll" >
                     {chatData.map((message) =>
                         <div>
@@ -46,6 +47,7 @@ const DisplayMessages = () => {
                             )}
                         </div>
                     )}
+                     <button class="btn btn-success btn-sm mb-3">Read More <i class="fa fa-arrow-down"></i></button>
                 </ul>
                 <PostMessages />
             </div>
